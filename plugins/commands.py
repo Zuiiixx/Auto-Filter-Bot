@@ -24,11 +24,6 @@ from utils import *
 logging.basicConfig(level=logging.ERROR)
 logger = logging.getLogger(__name__)
 
-logger.debug("Debug message for testing")
-logger.info("Info message for testing")
-logger.warning("Warning message for testing")
-logger.error("Error message for testing")
-
 TIMEZONE = "Asia/Kolkata"
 BATCH_FILES = {}
 
@@ -168,34 +163,40 @@ async def start(client, message):
 
     try:
         settings = await get_settings(int(data.split("_", 2)[1]))
-        if settings.get('fsub_id', AUTH_CHANNEL) == AUTH_REQ_CHANNEL:
-            if AUTH_REQ_CHANNEL and not await is_req_subscribed(client, message):
-                try:
-                    invite_link = await client.create_chat_invite_link(int(AUTH_REQ_CHANNEL), creates_join_request=True)
-                except ChatAdminRequired:
-                    print("Bot Ko AUTH_CHANNEL Per Admin Bana Bhai Pahile 🤧")
-                    return
-                btn = [[
-                    InlineKeyboardButton("⛔️ ᴊᴏɪɴ ɴᴏᴡ ⛔️", url=invite_link.invite_link)
-                ]]
-                if message.command[1] != "subscribe":
-                    btn.append([InlineKeyboardButton("♻️ ᴛʀʏ ᴀɢᴀɪɴ ♻️", url=f"https://t.me/{temp.U_NAME}?start={message.command[1]}")])
-                await client.send_photo(
-                    chat_id=message.from_user.id,
-                    photo=random.choice(FSUB_IMG),
-                    caption=script.FORCESUB_TEXT,
-                    reply_markup=InlineKeyboardMarkup(btn),
-                    parse_mode=enums.ParseMode.HTML,
-                )
-                return
-        else:
-            id = settings.get('fsub_id', AUTH_CHANNEL)
-            channel = int(id)
-            if settings.get('fsub_id', AUTH_CHANNEL) and not await is_subscribed(client, message.from_user.id, channel):
-                invite_link = await client.create_chat_invite_link(channel)
-                btn = [[
-                        InlineKeyboardButton("⛔️ ᴊᴏɪɴ ɴᴏᴡ ⛔️", url=invite_link.invite_link)
-                      ]]
+        fsub_id_list = settings.get('fsub_id', [])
+        btn = []
+        i = 1
+        fsub_id_list = fsub_id_list + AUTH_CHANNEL if AUTH_CHANNEL else fsub_id_list
+        fsub_id_list = fsub_id_list + AUTH_REQ_CHANNEL if AUTH_REQ_CHANNEL else fsub_id_list
+        
+        if fsub_id_list:
+            fsub_ids = [] # for check duplicate
+            for chnl in fsub_id_list:
+                if chnl not in fsub_ids:
+                    fsub_ids.append(chnl)
+                else:
+                    continue
+                if AUTH_REQ_CHANNEL and chnl in AUTH_REQ_CHANNEL and not await is_req_subscribed(client, message, chnl):
+                    try:
+                        invite_link = await client.create_chat_invite_link(chnl, creates_join_request=True)
+                    except ChatAdminRequired:
+                        print("Bot Ko AUTH_CHANNEL Per Admin Bana Bhai Pahile 🤧")
+                        return
+                    btn.append([
+                        InlineKeyboardButton(f"⛔️ ᴊᴏɪɴ ɴᴏᴡ channel {i}⛔️", url=invite_link.invite_link)
+                    ])
+                elif chnl not in AUTH_REQ_CHANNEL and not await is_subscribed(client, message.from_user.id, chnl):
+                    try:
+                        invite_link = await client.create_chat_invite_link(chnl)
+                    except ChatAdminRequired:
+                        print("Bot Ko AUTH_CHANNEL Per Admin Bana Bhai Pahile 🤧")
+                        return
+                    btn.append([
+                        InlineKeyboardButton(f"⛔️ ᴊᴏɪɴ ɴᴏᴡ channel {i}⛔️", url=invite_link.invite_link)
+                    ])
+                i += 1
+
+            if btn:
                 if message.command[1] != "subscribe":
                     btn.append([InlineKeyboardButton("♻️ ᴛʀʏ ᴀɢᴀɪɴ ♻️", url=f"https://t.me/{temp.U_NAME}?start={message.command[1]}")])
                 await client.send_photo(
@@ -207,9 +208,9 @@ async def start(client, message):
                 )
                 return
     except Exception as e:
-        await log_error(client, f"Got Error In Force Subscription Funtion.\n\n Error - {e}")
+        await log_error(client, f"Got Error In Force Subscription Function.\n\n Error - {e}")
         print(f"Error In Fsub :- {e}")
-
+        
     user_id = m.from_user.id
     if not await db.has_premium_access(user_id):
         try:
@@ -253,8 +254,7 @@ async def start(client, message):
         except Exception as e:
             await log_error(client, f"Got Error In Verification Funtion.\n\n Error - {e}")
             print(f"Error In Verification - {e}")
-            await message.reply_text(f"Something Want Wrong ! Message Here - @SilentXBotz_Support")
-            
+            pass
     
     if data.startswith("allfiles"):
         files = temp.GETALL.get(file_id)
@@ -889,7 +889,7 @@ async def set_fsub(client, message):
         return await message.reply_text(f"<b><code>{channel_id}</code> ɪꜱ ɪɴᴠᴀʟɪᴅ. ᴍᴀᴋᴇ ꜱᴜʀᴇ <a href=https://t.me/{temp.B_LINK} ʙᴏᴛ</a> ɪꜱ ᴀᴅᴍɪɴ ɪɴ ᴛʜᴀᴛ ᴄʜᴀɴɴᴇʟ\n\n<code>{e}</code></b>")
     if chat.type != enums.ChatType.CHANNEL:
         return await message.reply_text(f"🫥 <code>{channel_id}</code> ᴛʜɪꜱ ɪꜱ ɴᴏᴛ ᴄʜᴀɴɴᴇʟ, ꜱᴇɴᴅ ᴍᴇ ᴏɴʟʏ ᴄʜᴀɴɴᴇʟ ɪᴅ ɴᴏᴛ ɢʀᴏᴜᴘ ɪᴅ</b>")
-    await save_group_settings(grp_id, 'fsub_id', channel_id)
+    await save_group_settings(grp_id, 'fsub_id', [channel_id])
     mention = message.from_user.mention
     await client.send_message(LOG_API_CHANNEL, f"#Fsub_Channel_set\n\nᴜꜱᴇʀ - {mention} ꜱᴇᴛ ᴛʜᴇ ꜰᴏʀᴄᴇ ᴄʜᴀɴɴᴇʟ ꜰᴏʀ {title}:\n\nꜰꜱᴜʙ ᴄʜᴀɴɴᴇʟ - {chat.title}\nɪᴅ - `{channel_id}`")
     await message.reply_text(f"<b>ꜱᴜᴄᴄᴇꜱꜱꜰᴜʟʟʏ ꜱᴇᴛ ꜰᴏʀᴄᴇ ꜱᴜʙꜱᴄʀɪʙᴇ ᴄʜᴀɴɴᴇʟ ꜰᴏʀ {title}\n\nᴄʜᴀɴɴᴇʟ ɴᴀᴍᴇ - {chat.title}\nɪᴅ - <code>{channel_id}</code></b>")
@@ -904,7 +904,7 @@ async def remove_fsub(client, message):
     if not await is_check_admin(client, grp_id, message.from_user.id):
         return await message.reply_text('<b>ʏᴏᴜ ᴀʀᴇ ɴᴏᴛ ᴀᴅᴍɪɴ ɪɴ ᴛʜɪꜱ ɢʀᴏᴜᴘ</b>')
     settings = await get_settings(grp_id)
-    if settings["fsub_id"] == AUTH_CHANNEL:
+    if (c in AUTH_CHANNEL for c in settings['fsub_id']):
         await message.reply_text("<b>ᴄᴜʀʀᴇɴᴛʟʏ ɴᴏ ᴀɴʏ ғᴏʀᴄᴇ ꜱᴜʙ ᴄʜᴀɴɴᴇʟ.... <code>[ᴅᴇғᴀᴜʟᴛ ᴀᴄᴛɪᴠᴀᴛᴇ]</code></b>")
     else:
         await save_group_settings(grp_id, 'fsub_id', AUTH_CHANNEL)
@@ -1023,6 +1023,6 @@ async def reset_all_settings(client, message):
             quote=True
         )
     except Exception as e:
-        print(f"Error processing reset all settings command: {str(e)}")
+        print(f"Error Processing Reset All Settings Command: {str(e)}")
         await message.reply("<b>ᴇʀʀᴏʀ 🚫.oᴄᴄᴜʀʀᴇᴅ ᴡʜɪʟᴇ ᴅᴇʟᴇᴛɪɴɢ ɢʀᴏᴜᴘ ꜱᴇᴛᴛɪɴɢꜱ! ᴘʟᴇᴀꜱᴇ ᴛʀʏ ᴀɢᴀɪɴ ʟᴀᴛᴇʀ.</b>", quote=True)
         

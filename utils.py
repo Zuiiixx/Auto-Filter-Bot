@@ -40,6 +40,7 @@ START_CHAR = ('\'', '"', SMART_OPEN)
 class temp(object):   
     BANNED_USERS = []
     BANNED_CHATS = []
+    SETTINGS = {}
     ME = None
     CURRENT=int(os.environ.get("SKIP", 2))
     CANCEL = False
@@ -52,18 +53,17 @@ class temp(object):
     IMDB_CAP = {}
     VERIFICATIONS = {}
 
-async def is_req_subscribed(bot, query):
-    if await db.find_join_req(query.from_user.id):
+async def is_req_subscribed(bot, query, chnl):
+    if await db.find_join_req(query.from_user.id, chnl):
         return True
     try:
-        user = await bot.get_chat_member(AUTH_CHANNEL, query.from_user.id)
+        user = await bot.get_chat_member(chnl, query.from_user.id)
+        if user.status != enums.ChatMemberStatus.BANNED:
+            return True
     except UserNotParticipant:
         pass
     except Exception as e:
         print(e)
-    else:
-        if user.status != enums.ChatMemberStatus.BANNED:
-            return True
     return False
 
 async def is_subscribed(bot, user_id, channel_id):
@@ -200,12 +200,16 @@ async def get_shortlink(link, grp_id, is_second_shortener=False, is_third_shorte
     return link
 
 async def get_settings(group_id):
-    settings = await db.get_settings(int(group_id))
+    settings = temp.SETTINGS.get(group_id)
+    if not settings:
+        settings = await db.get_settings(group_id)
+        temp.SETTINGS.update({group_id: settings})
     return settings
     
 async def save_group_settings(group_id, key, value):
     current = await get_settings(group_id)
-    current[key] = value
+    current.update({key: value})
+    temp.SETTINGS.update({group_id: current})
     await db.update_settings(group_id, current)
     
 def get_size(size):
@@ -245,6 +249,14 @@ def extract_tag(file_name: str) -> str:
         return f"{quality_match.group(1)} •"
     return ""
 
+def extract_request_content(message_text):
+    match = re.search(r"<u>(.*?)</u>", message_text)
+    if match:
+        return match.group(1).strip()
+    match = re.search(r"📝 ʀᴇǫᴜᴇꜱᴛ ?: ?(.*?)(?:\n|$)", message_text)
+    if match:
+        return match.group(1).strip()
+    return message_text.strip()
  
 def clean_filename(file_name):
     file_name = re.sub(r'http\S+', '', re.sub(r'@\w+|#\w+', '', file_name))
@@ -618,5 +630,3 @@ async def group_setting_buttons(grp_id):
                 InlineKeyboardButton('⇋ ᴄʟᴏꜱᴇ ꜱᴇᴛᴛɪɴɢꜱ ᴍᴇɴᴜ ⇋', callback_data='close_data')
     ]]
     return buttons
-
-

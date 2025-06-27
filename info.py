@@ -29,8 +29,8 @@ SPELL_IMG = environ.get("SPELL_IMG", "https://graph.org/file/13702ae26fb05df5266
 SUBSCRIPTION = (environ.get('SUBSCRIPTION', 'https://telegra.ph/file/f983d857f3ce40795e4b8.jpg'))
 FSUB_IMG = (environ.get('FSUB_IMG', 'https://i.ibb.co/cShkPjcZ/x.jpg')).split() 
 
-ADMINS = [int(admin) if id_pattern.search(admin) else admin for admin in environ.get('ADMINS', '7300078531 1976581598').split()] 
-CHANNELS = [int(ch) if id_pattern.search(ch) else ch for ch in environ.get('CHANNELS', '-1002297386661 -1002032204369').split()]
+ADMINS = [int(admin) if id_pattern.search(admin) else admin for admin in environ.get('ADMINS', '').split()] 
+CHANNELS = [int(ch) if id_pattern.search(ch) else ch for ch in environ.get('CHANNELS', '-100').split()]
 LOG_CHANNEL = int(environ.get('LOG_CHANNEL', '-100'))  
 BIN_CHANNEL = int(environ.get('BIN_CHANNEL', '-100'))  
 MOVIE_UPDATE_CHANNEL = int(environ.get('MOVIE_UPDATE_CHANNEL', '-100'))  
@@ -55,8 +55,10 @@ CHNL_LNK = environ.get('CHNL_LNK', 'https://t.me/')
 OWNER_LNK = environ.get('OWNER_LNK', 'https://t.me/')
 UPDATE_CHANNEL_LNK = environ.get('UPDATE_CHANNEL_LNK', 'https://t.me/')
 
-AUTH_CHANNEL = int(environ.get('AUTH_CHANNEL', '-100'))
-AUTH_REQ_CHANNEL = int(environ.get('AUTH_REQ_CHANNEL', '-100'))
+AUTH_CHANNEL = environ.get("AUTH_CHANNEL", "") # add multiple channels here, separated by single space
+AUTH_CHANNEL = [int(ch) for ch in AUTH_CHANNEL.strip().split()] if AUTH_CHANNEL else []
+AUTH_REQ_CHANNEL = environ.get('AUTH_REQ_CHANNEL', '') # add multiple channels here, separated by single space
+AUTH_REQ_CHANNEL = [int(ch) for ch in AUTH_REQ_CHANNEL.strip().split()] if AUTH_REQ_CHANNEL else []
 
 IS_VERIFY = is_enabled('IS_VERIFY', True)
 LOG_VR_CHANNEL = int(environ.get('LOG_VR_CHANNEL', '100'))
@@ -121,7 +123,6 @@ else:
     ON_HEROKU = False
 BIND_ADRESS = str(getenv('WEB_SERVER_BIND_ADDRESS', '0.0.0.0'))
 FQDN = str(getenv('FQDN', BIND_ADRESS)) if not ON_HEROKU or getenv('FQDN') else APP_NAME+'.herokuapp.com'
-FQDN = "206.189.133.223:8089"
 URL = "https://{}/".format(FQDN) if ON_HEROKU or NO_PORT else "https://{}/".format(FQDN, PORT)
 SLEEP_THRESHOLD = int(environ.get('SLEEP_THRESHOLD', '60'))
 WORKERS = int(environ.get('WORKERS', '4'))
