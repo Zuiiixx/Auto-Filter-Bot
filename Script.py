@@ -1,7 +1,8 @@
 class script(object):
     START_TXT = """<b>✨ 𝗪𝗲𝗹𝗰𝗼𝗺𝗲 {}, ✨  
   
-I'm your badass movie-slinging bot 🍿  
+I'm your badass movie-slinging bot 🍿
+
 ⚡ Here to fetch the latest movies and series like a champ!  
   
 📥 Fast ⚡ Reliable ⚡ Unlimited  
@@ -32,47 +33,39 @@ Sit back and let the binge begin.
 ᴀғᴛᴇʀ ᴛʜᴀᴛ, ᴛʀʏ ᴀᴄᴄᴇssɪɴɢ ᴛʜᴀᴛ ᴍᴏᴠɪᴇ ᴛʜᴇɴ, ᴄʟɪᴄᴋ ᴏɴ ᴛʜᴇ "ᴛʀʏ ᴀɢᴀɪɴ" ʙᴜᴛᴛᴏɴ.
     </b>"""
 
-    MULTI_STATUS_TXT = """<b>╭────[ ᴅᴀᴛᴀʙᴀsᴇ 1 ]────⍟</b>
-│
-├⋟ ᴀʟʟ ᴜsᴇʀs ⋟ <code>{}</code>
-├⋟ ᴀʟʟ ɢʀᴏᴜᴘs ⋟ <code>{}</code>
-├⋟ ᴘʀᴇᴍɪᴜᴍ ᴜꜱᴇʀꜱ ⋟ <code>{}</code>
-├⋟ ᴀʟʟ ꜰɪʟᴇs ⋟ <code>{}</code>
-├⋟ ᴜsᴇᴅ sᴛᴏʀᴀɢᴇ ⋟ <code>{}</code>
-├⋟ ꜰʀᴇᴇ sᴛᴏʀᴀɢᴇ ⋟ <code>{}</code>
-│
-<b>├────[ ᴅᴀᴛᴀʙᴀsᴇ 2 ]────⍟</b>   
-│
-├⋟ ᴀʟʟ ꜰɪʟᴇs ⋟ <code>{}</code>
-├⋟ ꜱɪᴢᴇ ⋟ <code>{}</code>
-├⋟ ꜰʀᴇᴇ ⋟ <code>{}</code>
-│
-<b>├────[ 🤖 ʙᴏᴛ ᴅᴇᴛᴀɪʟs 🤖 ]────⍟</b>   
-│
-├⋟ ᴜᴘᴛɪᴍᴇ ⋟ {}
-├⋟ ʀᴀᴍ ⋟ <code>{}%</code>
-├⋟ ᴄᴘᴜ ⋟ <code>{}%</code>   
-│
-├⋟ ʙᴏᴛʜ ᴅʙ ꜰɪʟᴇ'ꜱ: <code>{}</code>
-│
-<b>╰─────────────────────⍟</b>"""
+    MULTI_STATUS_TXT =  """<b>⫷═════⫷ 📚 𝗗𝗔𝗧𝗔𝗕𝗔𝗦𝗘 𝟭 ⫸═════⫸</b>
+➤ 👤 Users Registered   : <code>{}</code>
+➤ 🏠 Groups Linked      : <code>{}</code>
+➤ 💠 Premium Members    : <code>{}</code>
+➤ 📂 Files Saved        : <code>{}</code>
+➤ 💽 Space Used         : <code>{}</code>
+➤ 🗃️ Free Capacity      : <code>{}</code>
 
-    STATUS_TXT = """<b>╭────[ ᴅᴀᴛᴀʙᴀsᴇ 1 ]────⍟</b>
-│
-├⋟ ᴀʟʟ ᴜsᴇʀs ⋟ <code>{}</code>
-├⋟ ᴀʟʟ ɢʀᴏᴜᴘs ⋟ <code>{}</code>
-├⋟ ᴘʀᴇᴍɪᴜᴍ ᴜꜱᴇʀꜱ ⋟ <code>{}</code>
-├⋟ ᴀʟʟ ꜰɪʟᴇs ⋟ <code>{}</code>
-├⋟ ᴜsᴇᴅ sᴛᴏʀᴀɢᴇ ⋟ <code>{}</code>
-├⋟ ꜰʀᴇᴇ sᴛᴏʀᴀɢᴇ ⋟ <code>{}</code>
-│
-<b>├────[ 🤖 ʙᴏᴛ ᴅᴇᴛᴀɪʟs 🤖 ]────⍟</b>   
-│
-├⋟ ᴜᴘᴛɪᴍᴇ ⋟ {}
-├⋟ ʀᴀᴍ ⋟ <code>{}%</code>
-├⋟ ᴄᴘᴜ ⋟ <code>{}%</code>   
-│
-<b>╰─────────────────────⍟</b>"""
+<b>⫷═════⫷ 📦 𝗗𝗔𝗧𝗔𝗕𝗔𝗦𝗘 𝟮 ⫸═════⫸</b>
+➤ 📂 Files Stored       : <code>{}</code>
+➤ 💽 Space Used         : <code>{}</code>
+➤ 🗃️ Free Capacity      : <code>{}</code>
+
+<b>⫷═════⫷ ⚙ 𝗕𝗢𝗧 𝗠𝗘𝗧𝗥𝗜𝗖𝗦 ⫸═════⫸</b>
+➤ ⏳ Uptime             : {}
+➤ 🔋 RAM Consumption   : <code>{}%</code>
+➤ 🧠 CPU Activity      : <code>{}%</code>
+
+➤ 📦 Combined DB Files  : <code>{}</code>
+"""
+    STATUS_TXT = """<b>⫷═════⫷ 📚 𝗗𝗔𝗧𝗔𝗕𝗔𝗦𝗘 ⫸═════⫸</b>
+➤ 👤 Users Registered   : <code>{}</code>
+➤ 🏠 Groups Linked      : <code>{}</code>
+➤ 💠 Premium Members    : <code>{}</code>
+➤ 📂 Files Saved        : <code>{}</code>
+➤ 💽 Space Used         : <code>{}</code>
+➤ 🗃️ Free Capacity      : <code>{}</code>
+
+<b>⫷═════⫷ ⚙ 𝗕𝗢𝗧 𝗠𝗘𝗧𝗥𝗜𝗖𝗦 ⫸═════⫸</b>
+➤ ⏳ Uptime             : {}
+➤ 🔋 RAM Consumption   : <code>{}%</code>
+➤ 🧠 CPU Activity      : <code>{}%</code>
+"""
 
     EARN_INFO = """<b><i><blockquote>💸 ʜᴏᴡ ᴛᴏ ᴇᴀʀɴ ᴍᴏɴᴇʏ ʙʏ ᴛʜɪs ʙᴏᴛ - </blockquote>
 
