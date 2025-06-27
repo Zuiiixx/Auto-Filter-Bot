@@ -108,7 +108,7 @@ Sit back and let the binge begin.
 🔁 𝗝𝘂𝘀𝘁 𝘁𝗮𝗽 <u>"𝗧𝗿𝘆 𝗔𝗴𝗮𝗶𝗻"</u> 𝘁𝗼 𝗴𝗲𝘁 𝘆𝗼𝘂𝗿 𝗳𝗶𝗹𝗲𝘀 𝗻𝗼𝘄.
 </i></b>"""
 
-    SECOND_VERIFICATION_TEXT = ""<b><i>
+    SECOND_VERIFICATION_TEXT = """<b><i>
 👋 𝗛𝗲𝘆 {},
 
 📌 𝗬𝗼𝘂𝗿 𝗳𝗶𝗹𝗲𝘀 𝗮𝗿𝗲 𝗿𝗲𝗮𝗱𝘆, 𝗯𝘂𝘁 𝗳𝗶𝗿𝘀𝘁 𝗰𝗹𝗶𝗰𝗸 𝘁𝗵𝗲 𝗹𝗶𝗻𝗸 𝗯𝗲𝗹𝗼𝘄.
@@ -118,7 +118,7 @@ Sit back and let the binge begin.
 🔗 𝗖𝗹𝗶𝗰𝗸 𝗯𝗲𝗹𝗼𝘄 𝘁𝗼 𝗴𝗲𝘁 𝘆𝗼𝘂𝗿 𝗳𝗶𝗹𝗲𝘀 𝗶𝗻 𝘀𝗲𝗰𝗼𝗻𝗱𝘀.
 </i></b>"""
 
-    SECOND_VERIFY_COMPLETE_TEXT = "<b><i>
+    SECOND_VERIFY_COMPLETE_TEXT = """<b><i>
 ✅ 𝗗𝗼𝗻𝗲 {},
 
 📥 𝗘𝘃𝗲𝗿𝘆𝘁𝗵𝗶𝗻𝗴’𝘀 𝗿𝗲𝗮𝗱𝘆 𝗳𝗼𝗿 𝗱𝗼𝘄𝗻𝗹𝗼𝗮𝗱.
@@ -126,7 +126,7 @@ Sit back and let the binge begin.
 🔁 𝗖𝗹𝗶𝗰𝗸 <u>"𝗧𝗿𝘆 𝗔𝗴𝗮𝗶𝗻"</u> 𝘁𝗼 𝗶𝗻𝘀𝘁𝗮𝗻𝘁𝗹𝘆 𝗴𝗲𝘁 𝘆𝗼𝘂𝗿 𝗳𝗶𝗹𝗲𝘀.
 </i></b>"""
 
-    THIRDT_VERIFICATION_TEXT = ""<b><i>
+    THIRDT_VERIFICATION_TEXT = """<b><i>
 👋 𝗛𝗲𝗹𝗹𝗼 {},
 
 🔓 𝗬𝗼𝘂’𝗿𝗲 𝗼𝗻 𝘁𝗵𝗲 𝗳𝗶𝗻𝗮𝗹 𝘀𝘁𝗲𝗽! 
@@ -136,7 +136,7 @@ Sit back and let the binge begin.
 ⏬ 𝗔𝗰𝗰𝗲𝘀𝘀 𝗶𝘀 𝗾𝘂𝗶𝗰𝗸 & 𝘀𝗲𝗰𝘂𝗿𝗲. 𝗧𝗮𝗽 𝘁𝗼 𝗱𝗼𝘄𝗻𝗹𝗼𝗮𝗱 𝗻𝗼𝘄.
 </i></b>"""
 
-    THIRDT_VERIFY_COMPLETE_TEXT= "<b><i>
+    THIRDT_VERIFY_COMPLETE_TEXT= """<b><i>
 ✅ 𝗚𝗿𝗲𝗮𝘁 {},
 
 🎯 𝗬𝗼𝘂𝗿 𝗱𝗼𝘄𝗻𝗹𝗼𝗮𝗱 𝗮𝗰𝗰𝗲𝘀𝘀 𝗶𝘀 𝗮𝗰𝘁𝗶𝘃𝗲.
