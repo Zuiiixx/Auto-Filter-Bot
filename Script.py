@@ -100,7 +100,7 @@ Sit back and let the binge begin.
 </i></b>"""
 
 
-    VERIFY_COMPLETE_TEXT = ""<b><i>
+    VERIFY_COMPLETE_TEXT = """<b><i>
 ✅ 𝗗𝗼𝗻𝗲 {},
 
 🎉 𝗔𝗰𝗰𝗲𝘀𝘀 𝗴𝗿𝗮𝗻𝘁𝗲𝗱! 𝗬𝗼𝘂’𝗿𝗲 𝗮𝗹𝗹 𝘀𝗲𝘁.
